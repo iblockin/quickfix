@@ -1,4 +1,4 @@
-module github.com/iblockin/quickfix
+module github.com/quickfixgo/quickfix
 
 go 1.15
 
