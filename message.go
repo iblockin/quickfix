@@ -210,7 +210,7 @@ func ParseMessageWithDataDictionary(
 		default:
 			foundBody = true
 			trailerBytes = rawBytes
-			msg.Body.add(msg.fields[fieldIndex : fieldIndex+1])
+			//msg.Body.add(msg.fields[fieldIndex : fieldIndex+1])
 		}
 		if parsedFieldBytes.tag == tagCheckSum {
 			break
