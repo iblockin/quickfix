@@ -198,9 +198,9 @@ func (m *FieldMap) SetString(tag Tag, value string) *FieldMap {
 func (m *FieldMap) Clear() {
 	m.tags = m.tags[0:0]
 	m.tagLookup = make(map[Tag]field)
-	for k := range m.tagLookup {
-		delete(m.tagLookup, k)
-	}
+	//for k := range m.tagLookup {
+	//	delete(m.tagLookup, k)
+	//}
 }
 
 //CopyInto overwrites the given FieldMap with this one
