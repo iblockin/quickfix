@@ -3,6 +3,7 @@ package quickfix
 import (
 	"bytes"
 	"sort"
+	"sync"
 	"time"
 )
 
@@ -39,6 +40,7 @@ func (t tagSort) Less(i, j int) bool { return t.compare(t.tags[i], t.tags[j]) }
 type FieldMap struct {
 	tagLookup map[Tag]field
 	tagSort
+	lock sync.Mutex
 }
 
 // ascending tags
@@ -49,6 +51,7 @@ func (m *FieldMap) init() {
 }
 
 func (m *FieldMap) initWithOrdering(ordering tagOrder) {
+	m.lock = sync.Mutex{}
 	m.tagLookup = make(map[Tag]field)
 	m.compare = ordering
 }
@@ -194,9 +197,10 @@ func (m *FieldMap) SetString(tag Tag, value string) *FieldMap {
 //Clear purges all fields from field map
 func (m *FieldMap) Clear() {
 	m.tags = m.tags[0:0]
-	for k := range m.tagLookup {
-		delete(m.tagLookup, k)
-	}
+	m.tagLookup = make(map[Tag]field)
+	//for k := range m.tagLookup {
+	//	delete(m.tagLookup, k)
+	//}
 }
 
 //CopyInto overwrites the given FieldMap with this one
