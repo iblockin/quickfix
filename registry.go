@@ -82,3 +82,11 @@ func lookupSession(sessionID SessionID) (s *session, ok bool) {
 	s, ok = sessions[sessionID]
 	return
 }
+
+func LookupSession(sessionID SessionID) (s *session, ok bool) {
+	sessionsLock.RLock()
+	defer sessionsLock.RUnlock()
+
+	s, ok = sessions[sessionID]
+	return
+}
